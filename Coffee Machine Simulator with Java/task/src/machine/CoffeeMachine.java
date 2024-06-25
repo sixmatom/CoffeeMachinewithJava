@@ -3,32 +3,33 @@ package machine;
 import java.util.Scanner;
 
 public class CoffeeMachine {
-    private static final Scanner sc = new Scanner(System.in);
-    private static int cups;
-    private static int water = 400;
-    private static int coffeeBeans = 120;
-    private static int milk = 540;
-    private static int money = 550;
-    private static int disposableCups = 9;
+    private final Scanner sc = new Scanner(System.in);
+    private int cups;
+    private int water = 400;
+    private int coffeeBeans = 120;
+    private int milk = 540;
+    private int money = 550;
+    private int disposableCups = 9;
 
     public static void main(String[] args) {
-       while (true) {
-           menu();
+       CoffeeMachine coffeeMachine = new CoffeeMachine();
+        while (true) {
+           coffeeMachine.menu();
        }
     }
 
-    public static void addIngredient() {
+    public void addIngredient() {
         System.out.println("Write how many ml of water you want to add:");
-        water += sc.nextInt();
+        water += Integer.parseInt(sc.nextLine());
         System.out.println("Write how many ml of milk you want to add:");
-        milk += sc.nextInt();
+        milk += Integer.parseInt(sc.nextLine());
         System.out.println("Write how many grams of coffee beans you want to add:");
-        coffeeBeans += sc.nextInt();
+        coffeeBeans += Integer.parseInt(sc.nextLine());
         System.out.println("Write how many disposable cups you want to add:");
-        disposableCups += sc.nextInt();
+        disposableCups += Integer.parseInt(sc.nextLine());
     }
 
-    public static String changeInventory(int cups, int coffeePerCup, int milkPerCup, int waterPerCup, int price) {
+    public String changeInventory(int cups, int coffeePerCup, int milkPerCup, int waterPerCup, int price) {
         String prompt = "";
         if(coffeeBeans - coffeePerCup < 0) {
             prompt = "Sorry, not enough coffee!";
@@ -51,11 +52,11 @@ public class CoffeeMachine {
         }
 
 
-    public static void getCups() {
+    public void getCups() {
         System.out.println("Write how many cups of coffee you will need:");
         cups = sc.nextInt();
     }
-    public static void menu(){
+    public void menu(){
         System.out.println("write action (buy, fill, take, remaining, exit)");
         String input = sc.nextLine();
         switch (input) {
@@ -76,7 +77,7 @@ public class CoffeeMachine {
         }
 
     }
-    public static void inventory() {
+    public void inventory() {
         System.out.println("The coffee machine has:");
         System.out.println(water + " ml of water");
         System.out.println(milk + " ml of milk");
@@ -85,25 +86,31 @@ public class CoffeeMachine {
         System.out.println("$" + money + " of money");
 
     }
-    public static void takeMoney() {
+    public void takeMoney() {
         System.out.println("I gave you $" + money);
         money -= money;
 
     }
-    public static void buyCoffee() {
-        System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino back - to main menu:");
-        String action = sc.nextLine();
-        switch (action) {
-            case "1":
+    public void buyCoffee() {
+        StringBuilder choices = new StringBuilder();
+        for( Coffee coffees : Coffee.values()) {
+            choices.append(coffees.ordinal()).append(". ").append( coffees.name()).append(" ");
+        }
+        String output = choices.toString();
+
+        System.out.println(output);
+        String action = (Coffee.values()[Integer.parseInt(sc.nextLine())].name());
+        switch (Coffee.valueOf(action)) {
+            case ESPRESSO:
                 System.out.println(changeInventory(1, 16, 0, 250, 4));
                 break;
-            case "2":
+            case LATTE:
                 System.out.println(changeInventory(1, 20, 75, 350, 7));
                 break;
-            case "3":
+            case CAPPUCCINO:
                 System.out.println(changeInventory(1, 12, 100, 200, 6));
                 break;
-            case "back":
+            case BACK:
                 break;
         }
     }
