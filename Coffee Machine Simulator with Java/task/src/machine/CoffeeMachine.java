@@ -38,7 +38,7 @@ public class CoffeeMachine {
             prompt = "Sorry, not enough milk!";
         } else if (water - waterPerCup < 0) {
             prompt = "Sorry, not enough water!";
-        } else if (cups - cups < 0) {
+        } else if (disposableCups - cups < 0) {
             prompt = "Sorry, not enough cups!";
         } else {
             coffeeBeans -= coffeePerCup * cups;
