@@ -99,7 +99,11 @@ public class CoffeeMachine {
         String output = choices.toString();
 
         System.out.println(output);
-        String action = (Coffee.values()[Integer.parseInt(sc.nextLine())].name());
+        String input = sc.nextLine();
+        if (input.equals("back")){
+            input = "0";
+        }
+        String action = (Coffee.values()[Integer.parseInt(input)].name());
         switch (Coffee.valueOf(action)) {
             case ESPRESSO:
                 System.out.println(changeInventory(1, 16, 0, 250, 4));
