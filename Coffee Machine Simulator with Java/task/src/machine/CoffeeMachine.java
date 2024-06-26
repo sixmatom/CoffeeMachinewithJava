@@ -30,7 +30,7 @@ public class CoffeeMachine {
     }
 
     public String changeInventory(int cups, int coffeePerCup, int milkPerCup, int waterPerCup, int price) {
-        String prompt = "";
+        String prompt;
         if(coffeeBeans - coffeePerCup < 0) {
             prompt = "Sorry, not enough coffee!";
 
